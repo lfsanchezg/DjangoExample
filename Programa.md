@@ -1,12 +1,10 @@
 # Programa Curso de Python
 
 ## Requisitos
-
 Python 3.6.3
 Django 1.11.6
 
 ## Clase 1: Introduccion
-
 * Python
 * Dependency management
 * Virtual environments
@@ -16,7 +14,6 @@ Django 1.11.6
 
 
 ## Clase 2: MVC básico
-
 * Introducción a modelos
 * Introducción a formularios
 * Introducción a vistas
