@@ -1,8 +1,7 @@
 # Programa Curso de Python
-
 ## Requisitos
-Python 3.6.3
-Django 1.11.6
+* Python 3.6.3
+* Django 1.11.6
 
 ## Clase 1: Introduccion
 * Python
@@ -12,8 +11,7 @@ Django 1.11.6
 * ¡Hola Django!
 * Proyecto de la clase: clínica veterinaria
 
-
-## Clase 2: MVC básico
+## Clase 2: MVC básico
 * Introducción a modelos
 * Introducción a formularios
 * Introducción a vistas
