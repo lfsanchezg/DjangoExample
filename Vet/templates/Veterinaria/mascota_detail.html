@@ -1,0 +1,9 @@
+{% extends 'Veterinaria/__base.html' %}
+
+{% block maincontent %}
+
+
+    <h1>{{ mascota.name }}</h1>
+    Fecha de nacimiento: {{ mascota.date_of_birth | timesince }}
+
+{% endblock %}

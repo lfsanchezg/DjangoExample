@@ -1,0 +1,11 @@
+{% extends 'Veterinaria/__base.html' %}
+
+{% block maincontent %}
+
+
+    {% for pet in mascota_list %}
+        <a href="{{pet.id}}">{{ pet.name }}</a><br>
+    {% endfor %}
+
+
+{% endblock %}
