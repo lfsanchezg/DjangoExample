@@ -1,19 +1,66 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView, View
-from django.urls import reverse_lazy
 
-from .models import Mascota
-# Create your views here.
+from .models import Mascota, Duegno
+
+# Vistas de clase
 
 class PetList(ListView):
-    ListView.model = Mascota
+    model = Mascota
 
-# TODO hacer que después de cada create se vaya a la página de detalles
 class PetCreate(CreateView):
-    CreateView.model = Mascota
-    CreateView.fields = ['name', 'date_of_birth']
-    CreateView.success_url = reverse_lazy("url_list_pets")
+    model = Mascota
+    fields = ['name', 'date_of_birth']
+
 
 class PetDetails(DetailView):
-    DetailView.model = Mascota
-    DetailView.context_object_name = 'mascota'
+    model = Mascota
+    context_object_name = 'mascota'
+
+# Vistas básicas
+
+def owner_list(request):
+    # Vista básica, hola mundo
+    return HttpResponse("asdasd")
+
+def owner_list2(request):
+    # Vista básica, crea una lista de objetos y los representa sobre el template mascota_list
+
+    objetos = [
+        {
+            'id': 1,
+            'name': 'dueño 1'
+        },
+        {
+            'id': 1,
+            'name': 'dueño 2'
+        },
+        {
+            'id': 1,
+            'name': 'dueño 3'
+        },
+        {
+            'id': 1,
+            'name': 'dueño 4'
+        },
+    ]
+
+    return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': objetos})
+
+def owner_list3(request):
+    # Vista básica, obtiene todos los dueños de la bd,
+    # genera una lista y los pasa a la template de mascotas
+
+    duegnos = Duegno.objects.all()
+
+    return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': duegnos})
+
+def owner_list4(request):
+    # Vista básica, hace una consulta sobre la bd, generando una lista
+    # y la pasa al template de mascotas.
+
+    duegnos = Duegno.objects.filter(age__gte=30, name__contains='P')
+
+    return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': duegnos})
+

@@ -2,10 +2,14 @@
 
 {% block maincontent %}
 
-
     {% for pet in mascota_list %}
         <a href="{{pet.id}}">{{ pet.name }}</a><br>
+
+        {% empty %}
+
+        <p> no hay objetos xC</p>
     {% endfor %}
 
-
 {% endblock %}
+
+

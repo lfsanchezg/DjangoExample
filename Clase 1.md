@@ -1,9 +1,9 @@
 # Clase 1
-
+En Ubuntu
 
 ````
 sudo apt-get install python3.6
-sudo apt-vet install python-pip3.6
+sudo apt-get install python-pip3.6
 sudo pip3 install virtualenvwrapper
 
 # instalar los scripts en el .bashrc
