@@ -1,14 +1,29 @@
 {% extends 'Veterinaria/__base.html' %}
 
+
+{% block title %}
+    Lista de Mascotas
+{% endblock %}
+
 {% block maincontent %}
-
-    {% for pet in mascota_list %}
-        <a href="{{pet.id}}">{{ pet.name }}</a><br>
-
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre Mascota</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for pet in mascota_list %}
+          <tr>
+              <td><a href="{{pet.id}}">{{ pet.name }}</a></td>
+          </tr>
         {% empty %}
 
         <p> no hay objetos xC</p>
+
     {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}
 
