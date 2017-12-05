@@ -11,11 +11,15 @@ class PetList(ListView):
 
 class PetCreate(CreateView):
     model = Mascota
-    fields = ['name', 'date_of_birth']
+    fields = '__all__'
 
 class PetDetails(DetailView):
     model = Mascota
     context_object_name = 'mascota'
+
+class DuegnoCreate(CreateView):
+    model = Duegno
+    fields = '__all__'
 
 # Vistas básicas
 
