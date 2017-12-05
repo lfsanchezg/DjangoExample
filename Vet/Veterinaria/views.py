@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, DetailView, View
+from django.views.generic import ListView, CreateView, DetailView
 
 from .models import Mascota, Duegno
 
@@ -12,7 +12,6 @@ class PetList(ListView):
 class PetCreate(CreateView):
     model = Mascota
     fields = ['name', 'date_of_birth']
-
 
 class PetDetails(DetailView):
     model = Mascota
@@ -63,4 +62,19 @@ def owner_list4(request):
     duegnos = Duegno.objects.filter(age__gte=30, name__contains='P')
 
     return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': duegnos})
+
+def owner_detail(request):
+
+    #recibiendo param por get params:
+    idDuegno = request.GET.get('identificador')
+
+    duegno_bd = Duegno.objects.get(pk=idDuegno)
+
+    mascotas = Mascota.objects.filter(duegno=duegno_bd)
+
+    diccionarioContextoCreadoAparte = dict()
+    diccionarioContextoCreadoAparte['duegno_plantilla'] = duegno_bd
+    diccionarioContextoCreadoAparte['sus_mascotas'] = mascotas
+
+    return render(request, 'Veterinaria/duegno_detail.html', context=diccionarioContextoCreadoAparte)
 
