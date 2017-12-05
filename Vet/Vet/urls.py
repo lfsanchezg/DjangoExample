@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from Veterinaria.views import homeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^mascotas/', include("Veterinaria.urls"))
+    url(r'^mascotas/', include("Veterinaria.urls")),
+    url(r'^$', homeView)
 ]

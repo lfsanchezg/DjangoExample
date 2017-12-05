@@ -1,10 +1,14 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView
 
 from .models import Mascota, Duegno
 
 # Vistas de clase
+
+def homeView(request):
+    return HttpResponseRedirect(reverse("url_list_pets"))
 
 class PetList(ListView):
     model = Mascota
@@ -20,6 +24,8 @@ class PetDetails(DetailView):
 class DuegnoCreate(CreateView):
     model = Duegno
     fields = '__all__'
+
+
 
 # Vistas básicas
 
@@ -68,9 +74,13 @@ def owner_list4(request):
     return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': duegnos})
 
 def owner_detail(request):
-
+    #todo implementar como parámetro de url, se usa captura de regex y aumentando la firma.
+    #todo implementar esto como detailview.
     #recibiendo param por get params:
     idDuegno = request.GET.get('identificador')
+
+    if idDuegno is None:
+        return HttpResponse("""Necesito el parámetro get "identificador" """)
 
     duegno_bd = Duegno.objects.get(pk=idDuegno)
 
@@ -81,4 +91,3 @@ def owner_detail(request):
     diccionarioContextoCreadoAparte['sus_mascotas'] = mascotas
 
     return render(request, 'Veterinaria/duegno_detail.html', context=diccionarioContextoCreadoAparte)
-
