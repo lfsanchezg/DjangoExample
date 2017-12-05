@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse_lazy
+from django.core.validators import validate_email
+from .validators import validate_chilean_cellphone
+
 
 class Duegno(models.Model):
     class Meta:
@@ -7,8 +10,8 @@ class Duegno(models.Model):
     first_name = models.CharField('Nombre', max_length=40)
     last_name = models.CharField('Apellido', max_length=40)
     age = models.IntegerField()
-    email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(null=True, blank=True, max_length=10)
+    email = models.EmailField(null=True, blank=True, validators=[validate_email])
+    phone = models.CharField(null=True, blank=True, max_length=12, validators=[validate_chilean_cellphone])
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -16,9 +19,6 @@ class Duegno(models.Model):
     def __unicode__(self):
         return self.first_name + " " + self.last_name
 
-# TODO crear formulario público para crear mascotas
-# TODO asignar URL de objeto para que al crearlo nos vayamos allá mismo
-# TODO definir relación varios a uno de dueño a mascota
 class Mascota(models.Model):
 
     class Meta:
