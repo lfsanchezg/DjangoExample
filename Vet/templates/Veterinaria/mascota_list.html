@@ -6,24 +6,26 @@
 {% endblock %}
 
 {% block maincontent %}
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nombre Mascota</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for pet in mascota_list %}
-          <tr>
-              <td><a href="{{pet.id}}">{{ pet.name }}</a></td>
-          </tr>
-        {% empty %}
+    {% if mascota_list %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre Mascota</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for pet in mascota_list %}
+                      <tr>
+                          <td><a href="{{pet.id}}">{{ pet.name }}</a></td>
+                          <td>{{ pet.duegno }} ({{ pet.duegno.age }})</td>
+                      </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    {% else %}
+            No hay objetos registrados xC
+    {% endif %}
 
-        <p> no hay objetos xC</p>
-
-    {% endfor %}
-  </tbody>
-</table>
 
 {% endblock %}
 

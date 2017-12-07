@@ -1,0 +1,16 @@
+{% extends 'Veterinaria/__base.html' %}
+
+{% block maincontent %}
+
+
+    <h1>{{ duegno_plantilla }}</h1><br>
+    Edad: {{ duegno_plantilla.age }}<br>
+    Teléfono: {{ duegno_plantilla.phone }}<br>
+    Correo: {{ duegno_plantilla.email }}<br>
+
+    <h2>Mascotas:</h2>
+    {% for m in sus_mascotas %}
+        <a href="{% url 'detail_pet' m.pk %}">{{ m.name }}</a><br>
+    {% endfor %}
+
+{% endblock %}
