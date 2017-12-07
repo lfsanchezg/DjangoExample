@@ -11,6 +11,8 @@
               <thead>
                 <tr>
                   <th scope="col">Nombre Mascota</th>
+                  <th scope="col">Dueño</th>
+                  <th scope="col">Creada por</th>
                 </tr>
               </thead>
               <tbody>
@@ -18,6 +20,7 @@
                       <tr>
                           <td><a href="{{pet.id}}">{{ pet.name }}</a></td>
                           <td>{{ pet.duegno }} ({{ pet.duegno.age }})</td>
+                          <td>{{ pet.created_by }} {{ pet.created_at }}</td>
                       </tr>
                 {% endfor %}
               </tbody>

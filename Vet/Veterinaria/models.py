@@ -30,6 +30,8 @@ class Mascota(models.Model):
     name = models.CharField('Nombre', max_length=10)
     date_of_birth = models.DateField('Fecha de nacimiento')
     duegno = models.ForeignKey(Duegno, on_delete=models.CASCADE, null=True) # https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.ForeignKey.on_delete
+    created_by = models.CharField('Creador', max_length=20, null=True, blank=True)
+    created_at = models.DateTimeField(null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse_lazy('detail_pet', kwargs={'pk': self.id})

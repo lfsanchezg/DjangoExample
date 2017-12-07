@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import ModelForm
+from datetime import datetime
 
 from .models import Mascota, Duegno
 
@@ -107,19 +108,23 @@ def duegno_list(request):
 
     return render(request, 'Veterinaria/duegno_list.html', context={'lista_de_duegnos': lista_para_la_template})
 
+@login_required()
 def create_pet(request):
 
     class MascotaForm(ModelForm):
         class Meta:
             model = Mascota
-            fields = '__all__'
+            fields = ['name', 'date_of_birth', 'duegno']
 
     if request.method == 'GET':
         return render(request, 'Veterinaria/mascota_form.html', {'form': MascotaForm()})
     if request.method == 'POST':
         formulario = MascotaForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
+            objeto_mascota = formulario.instance
+            objeto_mascota.created_by = request.user.username
+            objeto_mascota.created_at = datetime.now()
+            objeto_mascota.save()
             return redirect('url_list_pets')
         #else
         return render(request, 'Veterinaria/mascota_form.html', {'form': formulario})
