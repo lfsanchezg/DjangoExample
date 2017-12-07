@@ -1,11 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import ModelForm
 
 from .models import Mascota, Duegno
+
+# torpedo
+# https://rayed.com/wordpress/?p=1266
 
 # Vistas de clase
 
@@ -102,3 +106,23 @@ def duegno_list(request):
     lista_para_la_template = [{'id_duegno': duegno.id, 'nombre_duegno': str(duegno), 'n_mascotas': get_numero_de_mascotas(duegno)} for duegno in duegnos]
 
     return render(request, 'Veterinaria/duegno_list.html', context={'lista_de_duegnos': lista_para_la_template})
+
+def create_pet(request):
+
+    class MascotaForm(ModelForm):
+        class Meta:
+            model = Mascota
+            fields = '__all__'
+
+    if request.method == 'GET':
+        return render(request, 'Veterinaria/mascota_form.html', {'form': MascotaForm()})
+    if request.method == 'POST':
+        formulario = MascotaForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('url_list_pets')
+        #else
+        return render(request, 'Veterinaria/mascota_form.html', {'form': formulario})
+
+
+

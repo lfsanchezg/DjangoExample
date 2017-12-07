@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block maincontent %}
-    {% if lista_de_duegnos %}
+    {% if mascota_list %}
             <table class="table">
               <thead>
                 <tr>
@@ -14,7 +14,7 @@
                 </tr>
               </thead>
               <tbody>
-                  {% for pet in lista_de_duegnos %}
+                  {% for pet in mascota_list %}
                       <tr>
                           <td><a href="{{pet.id}}">{{ pet.name }}</a></td>
                           <td>{{ pet.duegno }} ({{ pet.duegno.age }})</td>
