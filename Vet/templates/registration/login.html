@@ -1,0 +1,16 @@
+{% extends 'Veterinaria/__base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+Formulario de Login
+{% endblock %}
+
+{% block maincontent %}
+    <form method="post" action="{% url 'login' %}?next={{ next }}">
+        {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <input class="btn btn-primary" type="submit" value="Save"/>
+    {% endbuttons %}
+    </form>
+{% endblock %}
