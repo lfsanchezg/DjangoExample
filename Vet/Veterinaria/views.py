@@ -25,10 +25,11 @@ class DuegnoCreate(CreateView):
     model = Duegno
     fields = '__all__'
 
+    def get_success_url(self):
+        return reverse("duegno_list_view")
 
 
 # Vistas básicas
-
 def owner_list(request):
     # Vista básica, hola mundo
     return HttpResponse("asdasd")
@@ -73,16 +74,12 @@ def owner_list4(request):
 
     return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': duegnos})
 
-def owner_detail(request):
-    #todo implementar como parámetro de url, se usa captura de regex y aumentando la firma.
-    #todo implementar esto como detailview.
-    #recibiendo param por get params:
-    idDuegno = request.GET.get('identificador')
+def owner_detail(request, duegno_id):
 
-    if idDuegno is None:
+    if duegno_id is None:
         return HttpResponse("""Necesito el parámetro get "identificador" """)
 
-    duegno_bd = Duegno.objects.get(pk=idDuegno)
+    duegno_bd = Duegno.objects.get(pk=duegno_id)
 
     mascotas = Mascota.objects.filter(duegno=duegno_bd)
 
@@ -91,3 +88,14 @@ def owner_detail(request):
     diccionarioContextoCreadoAparte['sus_mascotas'] = mascotas
 
     return render(request, 'Veterinaria/duegno_detail.html', context=diccionarioContextoCreadoAparte)
+
+def duegno_list(request):
+
+    duegnos = Duegno.objects.all()
+
+    def get_numero_de_mascotas(duegno: Duegno):
+        return len(Mascota.objects.filter(duegno=duegno)) # sí, funciona
+
+    lista_para_la_template = [{'id_duegno': duegno.id, 'nombre_duegno': str(duegno), 'n_mascotas': get_numero_de_mascotas(duegno)} for duegno in duegnos]
+
+    return render(request, 'Veterinaria/duegno_list.html', context={'lista_de_duegnos': lista_para_la_template})
