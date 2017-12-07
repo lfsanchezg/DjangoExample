@@ -2,22 +2,24 @@
 
 
 {% block title %}
-    Lista de Mascotas
+    Lista de Dueños
 {% endblock %}
+
 
 {% block maincontent %}
     {% if lista_de_duegnos %}
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Nombre Mascota</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Número de mascotas</th>
                 </tr>
               </thead>
               <tbody>
-                  {% for pet in lista_de_duegnos %}
+                  {% for d in lista_de_duegnos %}
                       <tr>
-                          <td><a href="{{pet.id}}">{{ pet.name }}</a></td>
-                          <td>{{ pet.duegno }} ({{ pet.duegno.age }})</td>
+                          <td>{{ d.nombre_duegno }}</td>
+                          <td><a href="{% url 'duegno_detail' d.id_duegno %}">{{ d.n_mascotas }} mascotas registradas</a></td>
                       </tr>
                 {% endfor %}
               </tbody>

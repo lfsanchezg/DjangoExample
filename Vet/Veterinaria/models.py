@@ -19,6 +19,9 @@ class Duegno(models.Model):
     def __unicode__(self):
         return self.first_name + " " + self.last_name
 
+    def get_absolute_url(self):
+        return reverse_lazy('duegno_detail', kwargs={'duegno_id': self.id})
+
 class Mascota(models.Model):
 
     class Meta:
