@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Mascota, Duegno
 
@@ -21,7 +23,7 @@ class PetDetails(DetailView):
     model = Mascota
     context_object_name = 'mascota'
 
-class DuegnoCreate(CreateView):
+class DuegnoCreate(LoginRequiredMixin, CreateView):
     model = Duegno
     fields = '__all__'
 
@@ -74,6 +76,7 @@ def owner_list4(request):
 
     return render(request, 'Veterinaria/mascota_list.html', context={'mascota_list': duegnos})
 
+@login_required()
 def owner_detail(request, duegno_id):
 
     if duegno_id is None:
